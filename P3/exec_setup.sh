@@ -9,9 +9,15 @@ if [[ ! -z $running_containers ]]; then
         container_id=${container_info%:*}
         case $hostname in
             snunes-router-*|host-snunes-*)
-                filename="$hostname.sh"
-                sudo docker cp "./setups/$filename" "$container_id:/"
-                sudo docker exec "$container_id" ash "/$filename"
+                filename=$hostname
+                ext=".sh"
+                # check if hostname is router
+                if [[ $hostname == snunes-router-* ]]; then
+                    sudo docker cp "./confs/$filename-frr$ext" "$container_id:/"
+                    sudo docker exec "$container_id" ash "/$filename-frr$ext"
+                fi
+                sudo docker cp "./confs/$filename$ext" "$container_id:/"
+                sudo docker exec "$container_id" ash "/$filename$ext"
                 echo "$hostname done"
                 ;;
         esac
