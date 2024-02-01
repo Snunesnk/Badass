@@ -1,24 +1,24 @@
-ip link add name vxlan10 type vxlan id 10 dev eth2 dstport 4789
+ip link add vxlan10 type vxlan id 10 dstport 4789
 ip link set dev vxlan10 up
 ip link add name br0 type bridge
 ip link set dev br0 up
-brctl addif br0 eth0
+brctl addif br0 eth1
 brctl addif br0 vxlan10
 
+## Can I justt put vtysh then config ?
+
 vtysh << EOF
-configure terminal
-! Turn off IPv6 forwarding
+conf t
+hostname frrr-1
 no ipv6 forwarding
-! Set the IP addres and enable OSPF on eth2 interface
-interface eth2
- ip address 10.1.1.10/30
+! Set the IP addres and enable OSPF
+interface eth0
+ ip address 10.1.1.2/30
  ip ospf area 0
-exit
 ! Set the IP addres and enable OSPF on lo interface
 interface lo
- ip address 1.1.1.4/32
+ ip address 1.1.1.2/32
  ip ospf area 0
-exit
 ! Enable a routing process BGP with AS number 1
 router bgp 1
  ! Specify a BGP neighbor with AS number 1
@@ -30,8 +30,6 @@ router bgp 1
   neighbor 1.1.1.1 activate
   advertise-all-vni
  exit-address-family
-exit
 ! Enable a routing process OSPF
 router ospf
-exit
 EOF

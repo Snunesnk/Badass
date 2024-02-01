@@ -35,3 +35,5 @@ brctl addif br0 vxlan10
    => Still adding bridge, ip addresse, bridge control
 4. => Do the same for other router
 5. => try to ping hosts
+
+To show that group is working, just change group for one router, restart and apply new config. Now ping will not work anymore

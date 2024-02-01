@@ -6,17 +6,17 @@ brctl addif br0 eth0
 brctl addif br0 vxlan10
 
 vtysh << EOF
-configure terminal
+conf t
 ! Turn off IPv6 forwarding
 no ipv6 forwarding
 ! Set the IP addres and enable OSPF on eth1 interface
-interface eth1
- ip address 10.1.1.6/30
+interface eth2
+ ip address 10.1.1.10/30
  ip ospf area 0
 exit
 ! Set the IP addres and enable OSPF on lo interface
 interface lo
- ip address 1.1.1.3/32
+ ip address 1.1.1.4/32
  ip ospf area 0
 exit
 ! Enable a routing process BGP with AS number 1
@@ -30,8 +30,6 @@ router bgp 1
   neighbor 1.1.1.1 activate
   advertise-all-vni
  exit-address-family
-exit
 ! Enable a routing process OSPF
 router ospf
-exit
 EOF

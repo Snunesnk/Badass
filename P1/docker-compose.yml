@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  host:
+    build: 
+      context: .
+      dockerfile: Dockerfile.host
+    image: snunes-host
+
+  router:
+    build: 
+      context: .
+      dockerfile: Dockerfile.router
+    image: snunes-router

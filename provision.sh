@@ -21,8 +21,8 @@ sudo apt-get update -y
 #Install GNS3
 sudo apt update -y
 sudo apt install -y python3-pip python3-pyqt5 python3-pyqt5.qtsvg \
-python3-pyqt5.qtwebsockets \
-qemu qemu-kvm qemu-utils libvirt-clients libvirt-daemon-system virtinst \
+python3-pyqt5.qtwebsockets pipx \
+qemu-kvm qemu-utils libvirt-clients libvirt-daemon-system virtinst \
  xtightvncviewer apt-transport-https \
 ca-certificates curl gnupg2 software-properties-common
 pipx install gns3-server
@@ -50,11 +50,11 @@ cd ./dynamips/build && cmake .. && sudo make install
 
 #Add user to group
 sudo usermod -a -G docker $(whoami)
-sudo usermod -a -G ubridge $(whoami)
 sudo usermod -a -G libvirt $(whoami)
 sudo usermod -a -G kvm $(whoami)
 sudo usermod -a -G wireshark $(whoami)
 sudo usermod -a -G root $(whoami)
+sudo usermod -a -G sudo $(USER)
 
 for i in ubridge docker wireshark; do
  sudo usermod -aG $i $USER
@@ -64,6 +64,5 @@ done
 docker pull frrouting/frr
 docker pull alpine
 
-sudo usermod -aG sudo $(USER)
 
 sudo reboot now

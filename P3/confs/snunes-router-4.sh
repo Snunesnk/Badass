@@ -1,5 +1,6 @@
 vtysh << EOF
-configure terminal
+conf t
+hostname frr-4
 ! Turn off IPv6 forwarding
 no ipv6 forwarding
 ! Set the IP addres on eth0 interface
@@ -17,23 +18,21 @@ exit
 ! Set the IP addres on lo interface
 interface lo
  ip address 1.1.1.1/32
-exit
 ! Enable a routing process BGP with AS number 1
 router bgp 1
  ! Create a BGP peer-group tagged DYNAMIC
- neighbor DYNAMIC peer-group
+ neighbor ibgp peer-group
  ! Assign the peer group to AS number 1
- neighbor DYNAMIC remote-as 1
+ neighbor ibgp remote-as 1
  ! Communicate with a neighbor through lo interface
- neighbor DYNAMIC update-source lo
+ neighbor ibgp update-source lo
  ! Configure BGP dynamic neighbors listen on specified TRUSTED range and add then to specified peer group
- bgp listen range 1.1.1.0/24 peer-group DYNAMIC
+ bgp listen range 1.1.1.0/29 peer-group ibgp
  ! Configure a neighbor in peer group DYNAMIC as Route Reflector client
  address-family l2vpn evpn
-  neighbor DYNAMIC activate
-  neighbor DYNAMIC route-reflector-client
+  neighbor ibgp activate
+  neighbor ibgp route-reflector-client
  exit-address-family
-exit
 ! Enable routing process OSPF on all IP networks on area 0
 router ospf
  network 0.0.0.0/0 area 0

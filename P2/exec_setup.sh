@@ -8,10 +8,10 @@ if [[ ! -z $running_containers ]]; then
         hostname=${container_info#*:}
         container_id=${container_info%:*}
         case $hostname in
-            snunes-router-*|host-snunes-*)
+            snunes-router-*|snunes-host-*)
                 filename="$hostname.sh"
                 sudo docker cp "./setups/$filename" "$container_id:/"
-                sudo docker exec "$container_id" ash "/$filename"
+                sudo docker exec "$container_id" ash "/$filename" $1
                 echo "$hostname done"
                 ;;
         esac
