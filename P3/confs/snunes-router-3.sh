@@ -1,4 +1,4 @@
-ip link add name vxlan10 type vxlan id 10 dev eth1 dstport 4789
+ip link add name vxlan10 type vxlan id 10 dev eth2 dstport 4789
 ip link set dev vxlan10 up
 ip link add name br0 type bridge
 ip link set dev br0 up
@@ -9,7 +9,7 @@ vtysh << EOF
 conf t
 ! Turn off IPv6 forwarding
 no ipv6 forwarding
-! Set the IP addres and enable OSPF on eth1 interface
+! Set the IP addres and enable OSPF on eth2 interface
 interface eth2
  ip address 10.1.1.10/30
  ip ospf area 0
