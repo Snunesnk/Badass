@@ -33,3 +33,12 @@ docker`.
 - VXLAN: 
     - https://blog.wescale.fr/les-reseaux-doverlay-principes-et-fonctionnement
     - https://www.juniper.net/documentation/us/en/software/junos/evpn-vxlan/topics/topic-map/sdn-vxlan.html
+ 
+
+To mount a shared folder: 
+
+    Start your VM
+    Devices > Insert Guest Additions CD image...
+    I had to manually mount the CD: sudo mount /dev/cdrom /media/cdrom
+    Install the necessary packages: sudo apt-get install make gcc linux-headers-$(uname -r)
+    Install the Guest Additions: sudo /media/cdrom/VBoxLinuxAdditions.run
