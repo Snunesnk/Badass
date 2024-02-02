@@ -1,3 +1,10 @@
+ip link add vxlan10 type vxlan id 10 dstport 4789
+ip link set dev vxlan10 up
+ip link add name br0 type bridge
+ip link set dev br0 up
+brctl addif br0 eth0
+brctl addif br0 vxlan10
+
 vtysh << EOF
 conf t
 ! Turn off IPv6 forwarding

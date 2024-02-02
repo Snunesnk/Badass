@@ -5,8 +5,6 @@ ip link set dev br0 up
 brctl addif br0 eth1
 brctl addif br0 vxlan10
 
-## Can I justt put vtysh then config ?
-
 vtysh << EOF
 conf t
 hostname frrr-1

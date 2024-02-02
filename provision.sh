@@ -55,6 +55,7 @@ sudo usermod -a -G kvm $(whoami)
 sudo usermod -a -G wireshark $(whoami)
 sudo usermod -a -G root $(whoami)
 sudo usermod -a -G sudo $(USER)
+sudo usermod -a -G vboxsf $(USER)
 
 for i in ubridge docker wireshark; do
  sudo usermod -aG $i $USER
